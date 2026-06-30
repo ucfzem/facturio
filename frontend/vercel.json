@@ -1,3 +1,4 @@
 {
+  "name": "facturio",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
