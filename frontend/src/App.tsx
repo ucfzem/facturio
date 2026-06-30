@@ -54,7 +54,9 @@ export default function App() {
           <>
             <Nav
               theme={theme}
+              lang={lang}
               onToggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+              onChangeLang={setLang}
               onGetStarted={() => scrollTo(ctaRef.current)}
             />
             <Hero
