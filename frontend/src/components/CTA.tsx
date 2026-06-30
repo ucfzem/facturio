@@ -10,7 +10,7 @@ export default function CTA() {
         maxWidth: '600px', margin: '0 auto', backdropFilter: 'blur(12px)'
       }}>
         <h3 style={{
-          fontFamily: 'Georgia,serif', fontSize: '2.2rem', marginBottom: '16px'
+          fontSize: '2.2rem', marginBottom: '16px'
         }}
           dangerouslySetInnerHTML={{ __html: heading.html }}
         />

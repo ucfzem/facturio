@@ -1,50 +1,54 @@
 * { margin: 0; padding: 0; box-sizing: border-box }
 
 :root {
-  --gold1: #C4A030;
-  --gold2: #D4AF37;
-  --gold3: #E8C547;
   --gold: #c9a24b;
   --gold-light: #e8cd86;
+  --gold1: #c9a24b;
+  --gold2: #c9a24b;
+  --gold3: #e8cd86;
   --brown: #2D241C;
 }
 
 .dark {
-  --bg: #1A1410;
+  --bg: #1a1410;
   --bg2: #231B15;
   --bg-card: #241b14;
-  --text: #F5F0E8;
+  --text: #f3e9d2;
   --text2: #C4B8A8;
   --muted: #9c8c6f;
-  --border: #3D3228;
+  --border: #3a2e20;
 }
 
 .light {
-  --bg: #FBF7F0;
+  --bg: #f3ead9;
   --bg2: #F5EDE0;
   --bg-card: #fffaf0;
-  --text: #2D241C;
+  --text: #2b2014;
   --text2: #6B5D4F;
   --muted: #7a6a52;
-  --border: #E0D5C5;
+  --border: #ddc9a3;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
   transition: all .3s;
-  font-family: system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   min-height: 100vh;
 }
 
 ::selection {
-  background: #D4AF37;
-  color: #1A1410;
+  background: var(--gold);
+  color: #1a1410;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', Georgia, serif;
 }
 
 .btn-gold {
-  background: linear-gradient(135deg, var(--gold1), var(--gold2), var(--gold3));
-  color: #1A1410;
+  background: var(--gold);
+  color: #1a1410;
   font-weight: 600;
   padding: 12px 24px;
   border-radius: 12px;
@@ -56,7 +60,7 @@ body {
 
 .btn-gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(212, 175, 55, .3);
+  box-shadow: 0 10px 40px rgba(201, 162, 75, .3);
 }
 
 .btn-outline {
@@ -64,9 +68,15 @@ body {
   border-radius: 20px;
   border: 2px solid var(--border);
   background: var(--bg2);
+  color: var(--muted);
   cursor: pointer;
   font-weight: 600;
   transition: all .3s;
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
 }
 
 .input {
@@ -82,11 +92,11 @@ body {
 }
 
 .input:focus {
-  border-color: var(--gold2);
+  border-color: var(--gold);
 }
 
 .card {
-  background: var(--bg2);
+  background: var(--bg-card, var(--bg2));
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px;
@@ -94,7 +104,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--gold1), var(--gold2), var(--gold3));
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

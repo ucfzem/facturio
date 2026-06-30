@@ -15,7 +15,7 @@ export default function Features() {
   return (
     <section className="container" style={{ padding: '60px 20px' }}>
       <h3 className="center" style={{
-        fontFamily: 'Georgia,serif', fontSize: '2.5rem', marginBottom: '48px'
+        fontSize: '2.5rem', marginBottom: '48px'
       }}>
         {t('features.title')}
       </h3>
