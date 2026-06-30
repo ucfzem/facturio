@@ -4,11 +4,10 @@ import { useLang } from '../i18n/LangContext'
 interface NavProps {
   theme: Theme
   onToggleTheme: () => void
-  onOpenPreferences: () => void
 }
 
-export default function Nav({ theme, onToggleTheme, onOpenPreferences }: NavProps) {
-  const { lang, t } = useLang()
+export default function Nav({ theme, onToggleTheme }: NavProps) {
+  const { t } = useLang()
   const d = theme === 'dark'
 
   return (
@@ -19,28 +18,14 @@ export default function Nav({ theme, onToggleTheme, onOpenPreferences }: NavProp
       zIndex: 50,
       background: d ? 'rgba(26,20,16,.8)' : 'rgba(243,234,217,.8)'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {lang !== 'fr' && (
-          <button className="btn-outline" onClick={onOpenPreferences}
-            style={{ padding: '4px 10px', fontSize: '1.1rem', lineHeight: 1, border: 'none' }}>
-            ⚙️
-          </button>
-        )}
-        <h1 style={{
-          fontFamily: 'Cinzel, serif', fontSize: '24px', fontWeight: 700,
-          color: 'var(--gold-light)',
-        }}>
-          Facturio
-        </h1>
-      </div>
+      <h1 style={{
+        fontFamily: 'Cinzel, serif', fontSize: '24px', fontWeight: 700,
+        color: 'var(--gold-light)',
+      }}>
+        Facturio
+      </h1>
 
       <div className="flex gap-12" style={{ alignItems: 'center' }}>
-        {lang === 'fr' && (
-          <button className="btn-outline" onClick={onOpenPreferences}
-            style={{ padding: '4px 10px', fontSize: '1.1rem', lineHeight: 1, border: 'none' }}>
-            ⚙️
-          </button>
-        )}
         <button
           className="btn-outline"
           onClick={onToggleTheme}

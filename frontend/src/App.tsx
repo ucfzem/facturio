@@ -9,7 +9,9 @@ import Footer from './components/Footer'
 import Preferences from './components/Preferences'
 
 export default function App() {
-  const [page, setPage] = useState<Page>('home')
+  const [page, setPage] = useState<Page>(
+    () => localStorage.getItem('configured') === 'true' ? 'home' : 'preferences'
+  )
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem('theme') as Theme) || 'dark'
   )
@@ -37,6 +39,7 @@ export default function App() {
             onConfirm={(newLang, newTheme) => {
               setLang(newLang)
               setTheme(newTheme)
+              localStorage.setItem('configured', 'true')
               setPage('home')
             }}
           />
@@ -45,7 +48,6 @@ export default function App() {
             <Nav
               theme={theme}
               onToggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-              onOpenPreferences={() => setPage('preferences')}
             />
             <Hero />
             <Features />
