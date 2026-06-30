@@ -5,34 +5,63 @@
 ## Objectif
 Créer et déployer Facturio, une app de facturation 1-clic pour freelances marocains (React + Vite + TypeScript).
 
+## Fonctionnalités
+- **Page d'accueil** : carte "Personnalise ton expérience" avec choix langue (FR/EN/ES/AR) + thème (Sombre/Clair)
+- **i18n complet** : toutes les traductions FR/EN/ES/AR avec `LangProvider` React
+- **RTL** : support arabe avec `dir="rtl"`
+- **Landing page** : Hero, Features (6 cartes), CTA, Footer
+- **Thème Claude Sonnet** : palette gold (#c9a24b), polices Cinzel (titres) + DM Sans (corps)
+
 ## Actions réalisées
 
-### Refactoring du code
-- Split de `App.tsx` monolithique en composants séparés : `Nav`, `Hero`, `Features`, `CTA`, `Footer`
-- Création d'un fichier `types.ts` pour les types partagés
-- Mise en forme du code (indentation, espaces)
-- Ajout de `.gitignore`
+### Session 1 - Setup & Refactoring
+- Split de `App.tsx` monolithique en composants : `Nav`, `Hero`, `Features`, `CTA`, `Footer`
+- Création de `types.ts` (Theme, Lang, Page)
+- Ajout `.gitignore`, `vite.config.ts` avec base dynamique (Vercel vs GitHub Pages)
+- `package.json` avec homepage et scripts
 
-### Configuration
-- `vite.config.ts` : `base: '/facturio/'` pour GitHub Pages
-- `package.json` : ajout homepage et scripts
-- `vercel.json` : SPA rewrites pour Vercel
-- Workflow GitHub Actions : déploiement automatique via `actions/deploy-pages`
+### Session 2 - Préférences & Design
+- Création composant `Preferences.tsx` avec design élégant (Cinzel, or #c9a24b)
+- Variables CSS : `--gold`, `--gold-light`, `--bg-card`, `--muted`
+- Palette harmonisée Dark/Light
+
+### Session 3 - i18n
+- `frontend/src/i18n/translations.ts` : 4 langues (FR/EN/ES/AR), ~40 clés chacune
+- `LangContext.tsx` + `LangProvider.tsx` pour propagation
+- `t()` pour texte simple, `tHtml()` pour texte avec `<gradient>` tags
+- Tous les composants migrés vers les clés de traduction
+
+### Session 4 - Entry page & Finalisation
+- Page d'accueil = carte Préférences (au lieu du ⚙️ dans la nav)
+- `localStorage.setItem('configured', 'true')` → retour direct au site
+- Nav simplifiée sans bouton ⚙️
 
 ### Déploiement
-- **GitHub** : repo `ucfzem/facturio` créé, code pushé sur `main`
-- **GitHub Pages** : activé via API, URL `https://ucfzem.github.io/facturio/`
-- **Vercel** : déployé sur `https://frontend-five-ecru-61.vercel.app`
-  - _Note : renommer le projet en "facturio" dans le dashboard Vercel_
+- **GitHub** : repo `ucfzem/facturio`, push sur `main`
+- **GitHub Pages** : activé via API, workflow Actions
+- **Vercel** : déploiement manuel avec token
 
-### Palette
-- Dark : `#1A1410` / `#231B15` / or `#C4A030` → `#D4AF37` → `#E8C547`
-- Light : `#FBF7F0` / `#F5EDE0` / marron `#2D241C`
+### Palette finale
+| Rôle | Dark | Light |
+|------|------|-------|
+| Fond page | `#1a1410` | `#f3ead9` |
+| Fond carte | `#241b14` | `#fffaf0` |
+| Texte | `#f3e9d2` | `#2b2014` |
+| Muet | `#9c8c6f` | `#7a6a52` |
+| Bordure | `#3a2e20` | `#ddc9a3` |
+| Or | `#c9a24b` | `#c9a24b` |
+| Or clair | `#e8cd86` | `#e8cd86` |
 
-### Arborescence
+### Polices
+- Titres (h1-h6) : **Cinzel** (Google Fonts)
+- Corps : **DM Sans** (Google Fonts)
+
+### Arborescence finale
 ```
 facturio/
 ├── .github/workflows/deploy.yml
+├── .gitignore
+├── BACKUP.md
 ├── README.md
 ├── frontend/
 │   ├── index.html
@@ -44,12 +73,17 @@ facturio/
 │       ├── App.tsx
 │       ├── style.css
 │       ├── types.ts
+│       ├── i18n/
+│       │   ├── LangContext.tsx
+│       │   ├── LangProvider.tsx
+│       │   └── translations.ts
 │       └── components/
 │           ├── Nav.tsx
 │           ├── Hero.tsx
 │           ├── Features.tsx
 │           ├── CTA.tsx
-│           └── Footer.tsx
+│           ├── Footer.tsx
+│           └── Preferences.tsx
 ```
 
 ### Sécurité
@@ -60,3 +94,8 @@ facturio/
 ```bash
 cd frontend && npm install && npm run dev
 ```
+
+## Liens
+- **GitHub** : https://github.com/ucfzem/facturio
+- **GitHub Pages** : https://ucfzem.github.io/facturio
+- **Vercel** : https://frontend-five-ecru-61.vercel.app
