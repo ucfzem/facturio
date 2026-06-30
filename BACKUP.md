@@ -11,6 +11,7 @@ Créer et déployer Facturio, une app de facturation 1-clic pour freelances maro
 - **RTL** : support arabe avec `dir="rtl"`
 - **Landing page** : Hero, Features (6 cartes), CTA, Footer
 - **Thème Claude Sonnet** : palette gold (#c9a24b), polices Cinzel (titres) + DM Sans (corps)
+- **Boutons interactifs** : Nav "Essai gratuit" → scroll CTA, Hero "Commencer" → scroll Features, cartes → scroll CTA, CTA submit → confirmation "Merci !"
 
 ## Actions réalisées
 
