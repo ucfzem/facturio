@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { useLang } from '../i18n/LangContext'
 
+interface HeroProps {
+  onGetStarted: () => void
+}
+
 const stats: { value: string; key: string }[] = [
   { value: '2300+', key: 'stat.1.label' },
   { value: '5h', key: 'stat.2.label' },
@@ -8,7 +12,7 @@ const stats: { value: string; key: string }[] = [
   { value: '60s', key: 'stat.4.label' },
 ]
 
-export default function Hero() {
+export default function Hero({ onGetStarted }: HeroProps) {
   const { t, tHtml } = useLang()
   const [email, setEmail] = useState('')
   const heading = tHtml('hero.heading')
@@ -39,7 +43,7 @@ export default function Hero() {
           className="input" type="email" placeholder={t('hero.placeholder')}
           value={email} onChange={e => setEmail(e.target.value)}
         />
-        <button className="btn-gold">{t('hero.cta')}</button>
+        <button className="btn-gold" onClick={onGetStarted}>{t('hero.cta')}</button>
       </div>
 
       <div className="flex center mt-40" style={{ gap: '40px' }}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Theme, Lang, Page } from './types'
 import LangProvider from './i18n/LangProvider'
 import Nav from './components/Nav'
@@ -19,12 +19,19 @@ export default function App() {
     () => (localStorage.getItem('lang') as Lang) || 'fr'
   )
 
+  const featuresRef = useRef<HTMLElement>(null!)
+  const ctaRef = useRef<HTMLElement>(null!)
+
   useEffect(() => {
     document.documentElement.className = theme
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
     localStorage.setItem('theme', theme)
     localStorage.setItem('lang', lang)
   }, [theme, lang])
+
+  const scrollTo = (ref: HTMLElement) => {
+    ref?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <LangProvider lang={lang}>
@@ -48,10 +55,13 @@ export default function App() {
             <Nav
               theme={theme}
               onToggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+              onGetStarted={() => scrollTo(ctaRef.current)}
             />
-            <Hero />
-            <Features />
-            <CTA />
+            <Hero
+              onGetStarted={() => scrollTo(featuresRef.current)}
+            />
+            <Features ref={featuresRef} onFeatureClick={() => scrollTo(ctaRef.current)} />
+            <div ref={ctaRef}><CTA /></div>
             <Footer />
           </>
         )}

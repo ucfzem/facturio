@@ -1,4 +1,9 @@
+import { forwardRef } from 'react'
 import { useLang } from '../i18n/LangContext'
+
+interface FeaturesProps {
+  onFeatureClick: () => void
+}
 
 const features: { emoji: string; titleKey: string; descKey: string }[] = [
   { emoji: '⚡', titleKey: 'features.1.title', descKey: 'features.1.desc' },
@@ -9,11 +14,11 @@ const features: { emoji: string; titleKey: string; descKey: string }[] = [
   { emoji: '📱', titleKey: 'features.6.title', descKey: 'features.6.desc' },
 ]
 
-export default function Features() {
+const Features = forwardRef<HTMLElement, FeaturesProps>(({ onFeatureClick }, ref) => {
   const { t } = useLang()
 
   return (
-    <section className="container" style={{ padding: '60px 20px' }}>
+    <section ref={ref} className="container" style={{ padding: '60px 20px' }}>
       <h3 className="center" style={{
         fontSize: '2.5rem', marginBottom: '48px'
       }}>
@@ -28,8 +33,10 @@ export default function Features() {
           <div
             key={f.titleKey}
             className="card"
+            onClick={onFeatureClick}
+            style={{ cursor: 'pointer' }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--gold2)'
+              e.currentTarget.style.borderColor = 'var(--gold)'
               e.currentTarget.style.transform = 'translateY(-4px)'
             }}
             onMouseLeave={e => {
@@ -45,4 +52,6 @@ export default function Features() {
       </div>
     </section>
   )
-}
+})
+
+export default Features

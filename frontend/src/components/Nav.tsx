@@ -4,9 +4,10 @@ import { useLang } from '../i18n/LangContext'
 interface NavProps {
   theme: Theme
   onToggleTheme: () => void
+  onGetStarted: () => void
 }
 
-export default function Nav({ theme, onToggleTheme }: NavProps) {
+export default function Nav({ theme, onToggleTheme, onGetStarted }: NavProps) {
   const { t } = useLang()
   const d = theme === 'dark'
 
@@ -32,7 +33,7 @@ export default function Nav({ theme, onToggleTheme }: NavProps) {
         >
           {d ? t('nav.theme.dark') : t('nav.theme.light')}
         </button>
-        <button className="btn-gold">{t('nav.cta')}</button>
+        <button className="btn-gold" onClick={onGetStarted}>{t('nav.cta')}</button>
       </div>
     </nav>
   )
