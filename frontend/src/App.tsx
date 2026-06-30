@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Theme, Lang, Page } from './types'
+import LangProvider from './i18n/LangProvider'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Features from './components/Features'
@@ -24,34 +25,35 @@ export default function App() {
   }, [theme, lang])
 
   return (
-    <div style={{
-      minHeight: '100vh', background: 'var(--bg)',
-      color: 'var(--text)', transition: '.3s'
-    }}>
-      {page === 'preferences' ? (
-        <Preferences
-          lang={lang}
-          theme={theme}
-          onConfirm={(newLang, newTheme) => {
-            setLang(newLang)
-            setTheme(newTheme)
-            setPage('home')
-          }}
-        />
-      ) : (
-        <>
-          <Nav
-            theme={theme}
+    <LangProvider lang={lang}>
+      <div style={{
+        minHeight: '100vh', background: 'var(--bg)',
+        color: 'var(--text)', transition: '.3s'
+      }}>
+        {page === 'preferences' ? (
+          <Preferences
             lang={lang}
-            onToggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-            onOpenPreferences={() => setPage('preferences')}
+            theme={theme}
+            onConfirm={(newLang, newTheme) => {
+              setLang(newLang)
+              setTheme(newTheme)
+              setPage('home')
+            }}
           />
-          <Hero />
-          <Features />
-          <CTA />
-          <Footer />
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            <Nav
+              theme={theme}
+              onToggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+              onOpenPreferences={() => setPage('preferences')}
+            />
+            <Hero />
+            <Features />
+            <CTA />
+            <Footer />
+          </>
+        )}
+      </div>
+    </LangProvider>
   )
 }

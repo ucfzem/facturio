@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Lang, Theme } from '../types'
+import { useLang } from '../i18n/LangContext'
 
 interface PreferencesProps {
   lang: Lang
@@ -17,6 +18,7 @@ const flags: Record<Lang, LangEntry> = {
 }
 
 export default function Preferences({ lang, theme, onConfirm }: PreferencesProps) {
+  const { t } = useLang()
   const [selectedLang, setSelectedLang] = useState<Lang>(lang)
   const [selectedTheme, setSelectedTheme] = useState<Theme>(theme)
 
@@ -84,14 +86,14 @@ export default function Preferences({ lang, theme, onConfirm }: PreferencesProps
           margin: '0 0 6px',
           letterSpacing: '.03em',
         }}>
-          Personnalise ton expérience
+          {t('prefs.title')}
         </h1>
         <p style={{
           color: 'var(--muted, var(--text2))',
           fontSize: '.85rem',
           margin: '0 0 22px',
         }}>
-          Choisis ta langue et ton thème préférés
+          {t('prefs.sub')}
         </p>
 
         <div style={{
@@ -101,7 +103,7 @@ export default function Preferences({ lang, theme, onConfirm }: PreferencesProps
           color: 'var(--muted, var(--text2))',
           margin: '0 0 10px',
         }}>
-          Langue
+          {t('prefs.lang')}
         </div>
 
         <div style={{
@@ -129,7 +131,7 @@ export default function Preferences({ lang, theme, onConfirm }: PreferencesProps
           color: 'var(--muted, var(--text2))',
           margin: '0 0 10px',
         }}>
-          Thème
+          {t('prefs.theme')}
         </div>
 
         <div style={{
@@ -143,13 +145,13 @@ export default function Preferences({ lang, theme, onConfirm }: PreferencesProps
             style={themeBtnStyle(selectedTheme === 'dark')}
             onClick={() => setSelectedTheme('dark')}
           >
-            🌙 Sombre
+            {t('prefs.dark')}
           </button>
           <button
             style={themeBtnStyle(selectedTheme === 'light')}
             onClick={() => setSelectedTheme('light')}
           >
-            ☀️ Clair
+            {t('prefs.light')}
           </button>
         </div>
 
@@ -167,7 +169,7 @@ export default function Preferences({ lang, theme, onConfirm }: PreferencesProps
             cursor: 'pointer',
           }}
         >
-          Valider
+          {t('prefs.confirm')}
         </button>
       </div>
     </div>

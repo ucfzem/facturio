@@ -1,13 +1,14 @@
-import { Theme, Lang } from '../types'
+import { Theme } from '../types'
+import { useLang } from '../i18n/LangContext'
 
 interface NavProps {
   theme: Theme
-  lang: Lang
   onToggleTheme: () => void
   onOpenPreferences: () => void
 }
 
-export default function Nav({ theme, lang, onToggleTheme, onOpenPreferences }: NavProps) {
+export default function Nav({ theme, onToggleTheme, onOpenPreferences }: NavProps) {
+  const { lang, t } = useLang()
   const d = theme === 'dark'
 
   return (
@@ -19,7 +20,7 @@ export default function Nav({ theme, lang, onToggleTheme, onOpenPreferences }: N
       background: d ? 'rgba(26,20,16,.8)' : 'rgba(251,247,240,.8)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {lang === 'ar' && (
+        {lang !== 'fr' && (
           <button className="btn-outline" onClick={onOpenPreferences}
             style={{ padding: '4px 10px', fontSize: '1.1rem', lineHeight: 1 }}>
             ⚙️
@@ -35,7 +36,7 @@ export default function Nav({ theme, lang, onToggleTheme, onOpenPreferences }: N
       </div>
 
       <div className="flex gap-12" style={{ alignItems: 'center' }}>
-        {lang !== 'ar' && (
+        {lang === 'fr' && (
           <button className="btn-outline" onClick={onOpenPreferences}
             style={{ padding: '4px 10px', fontSize: '1.1rem', lineHeight: 1 }}>
             ⚙️
@@ -46,9 +47,9 @@ export default function Nav({ theme, lang, onToggleTheme, onOpenPreferences }: N
           onClick={onToggleTheme}
           style={{ color: d ? 'var(--gold3)' : 'var(--gold1)' }}
         >
-          {d ? '☀️ Light' : '🌙 Dark'}
+          {d ? t('nav.theme.dark') : t('nav.theme.light')}
         </button>
-        <button className="btn-gold">Essai gratuit</button>
+        <button className="btn-gold">{t('nav.cta')}</button>
       </div>
     </nav>
   )
