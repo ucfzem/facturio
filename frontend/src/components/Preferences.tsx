@@ -7,7 +7,9 @@ interface PreferencesProps {
   onConfirm: (lang: Lang, theme: Theme) => void
 }
 
-const flags: Record<Lang, { flag: string; label: string }> = {
+type LangEntry = { flag: string; label: string }
+
+const flags: Record<Lang, LangEntry> = {
   fr: { flag: '🇫🇷', label: 'FR' },
   en: { flag: '🇬🇧', label: 'EN' },
   es: { flag: '🇪🇸', label: 'ES' },
@@ -18,95 +20,151 @@ export default function Preferences({ lang, theme, onConfirm }: PreferencesProps
   const [selectedLang, setSelectedLang] = useState<Lang>(lang)
   const [selectedTheme, setSelectedTheme] = useState<Theme>(theme)
 
+  const cardStyle: React.CSSProperties = {
+    width: '100%', maxWidth: '420px',
+    background: 'var(--bg-card, var(--bg2))',
+    border: '1px solid var(--border)',
+    borderRadius: '18px',
+    padding: '28px 22px',
+  }
+
+  const langBtnStyle = (active: boolean): React.CSSProperties => ({
+    background: active ? 'rgba(201,162,75,.12)' : 'transparent',
+    border: `1px solid ${active ? 'var(--gold)' : 'var(--border)'}`,
+    borderRadius: '12px',
+    padding: '12px 4px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '6px',
+    cursor: 'pointer',
+    color: 'var(--text)',
+    transition: 'border-color .2s, background .2s',
+  })
+
+  const initialsStyle = (active: boolean): React.CSSProperties => ({
+    fontFamily: 'Cinzel, serif',
+    fontSize: '.8rem',
+    fontWeight: 600,
+    color: active ? 'var(--gold-light, var(--gold3))' : 'var(--muted, var(--text2))',
+  })
+
+  const themeBtnStyle = (active: boolean): React.CSSProperties => ({
+    flex: 1,
+    background: active ? 'var(--gold)' : 'transparent',
+    border: 'none',
+    padding: '12px 8px',
+    color: active ? '#1a1410' : 'var(--muted, var(--text2))',
+    fontSize: '.85rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px',
+    transition: 'background .2s, color .2s',
+  })
+
   return (
-    <div className="flex center" style={{
-      minHeight: '100vh', padding: '24px',
-      background: 'var(--bg)', color: 'var(--text)',
-      transition: 'background .3s, color .3s'
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--bg)',
+      color: 'var(--text)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '24px',
+      transition: 'background .3s, color .3s',
     }}>
-      <div style={{
-        width: '100%', maxWidth: '420px',
-        background: 'var(--bg2)', border: '1px solid var(--border)',
-        borderRadius: '18px', padding: '28px 22px'
-      }}>
+      <div style={cardStyle}>
         <h1 style={{
-          fontFamily: 'Georgia,serif', fontSize: '1.25rem',
-          color: 'var(--gold3)', margin: '0 0 6px'
+          fontFamily: 'Cinzel, serif',
+          fontSize: '1.25rem',
+          color: 'var(--gold-light, var(--gold3))',
+          margin: '0 0 6px',
+          letterSpacing: '.03em',
         }}>
           Personnalise ton expérience
         </h1>
-        <p style={{ color: 'var(--text2)', fontSize: '.85rem', margin: '0 0 22px' }}>
+        <p style={{
+          color: 'var(--muted, var(--text2))',
+          fontSize: '.85rem',
+          margin: '0 0 22px',
+        }}>
           Choisis ta langue et ton thème préférés
         </p>
 
         <div style={{
-          fontSize: '.75rem', textTransform: 'uppercase',
-          letterSpacing: '.08em', color: 'var(--text2)', margin: '0 0 10px'
+          fontSize: '.75rem',
+          textTransform: 'uppercase',
+          letterSpacing: '.08em',
+          color: 'var(--muted, var(--text2))',
+          margin: '0 0 10px',
         }}>
           Langue
         </div>
 
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '10px', marginBottom: '26px'
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '10px',
+          marginBottom: '26px',
         }}>
-          {(Object.entries(flags) as [Lang, { flag: string; label: string }][]).map(([key, f]) => (
+          {(Object.entries(flags) as [Lang, LangEntry][]).map(([key, f]) => (
             <button
               key={key}
+              style={langBtnStyle(selectedLang === key)}
               onClick={() => setSelectedLang(key)}
-              style={{
-                background: 'transparent', border: `1px solid ${selectedLang === key ? 'var(--gold2)' : 'var(--border)'}`,
-                borderRadius: '12px', padding: '12px 4px', cursor: 'pointer',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
-                color: 'var(--text)',
-                backgroundImage: selectedLang === key ? 'rgba(212,175,55,.12)' : undefined,
-              }}
             >
               <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>{f.flag}</span>
-              <span style={{
-                fontFamily: 'Georgia,serif', fontSize: '.8rem', fontWeight: 600,
-                color: selectedLang === key ? 'var(--gold3)' : 'var(--text2)'
-              }}>
-                {f.label}
-              </span>
+              <span style={initialsStyle(selectedLang === key)}>{f.label}</span>
             </button>
           ))}
         </div>
 
         <div style={{
-          fontSize: '.75rem', textTransform: 'uppercase',
-          letterSpacing: '.08em', color: 'var(--text2)', margin: '0 0 10px'
+          fontSize: '.75rem',
+          textTransform: 'uppercase',
+          letterSpacing: '.08em',
+          color: 'var(--muted, var(--text2))',
+          margin: '0 0 10px',
         }}>
           Thème
         </div>
 
         <div style={{
-          display: 'flex', border: '1px solid var(--border)',
-          borderRadius: '12px', overflow: 'hidden', marginBottom: '24px'
+          display: 'flex',
+          border: '1px solid var(--border)',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          marginBottom: '24px',
         }}>
-          {(['dark', 'light'] as Theme[]).map(t => (
-            <button
-              key={t}
-              onClick={() => setSelectedTheme(t)}
-              style={{
-                flex: 1, background: selectedTheme === t ? 'var(--gold2)' : 'transparent',
-                border: 'none', padding: '12px 8px', cursor: 'pointer',
-                color: selectedTheme === t ? '#1A1410' : 'var(--text2)',
-                fontSize: '.85rem', fontWeight: 500,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
-              }}
-            >
-              {t === 'dark' ? '🌙' : '☀️'} {t === 'dark' ? 'Sombre' : 'Clair'}
-            </button>
-          ))}
+          <button
+            style={themeBtnStyle(selectedTheme === 'dark')}
+            onClick={() => setSelectedTheme('dark')}
+          >
+            🌙 Sombre
+          </button>
+          <button
+            style={themeBtnStyle(selectedTheme === 'light')}
+            onClick={() => setSelectedTheme('light')}
+          >
+            ☀️ Clair
+          </button>
         </div>
 
         <button
           onClick={() => onConfirm(selectedLang, selectedTheme)}
           style={{
-            width: '100%', padding: '13px', borderRadius: '12px',
-            border: 'none', background: 'var(--gold2)', color: '#1A1410',
-            fontWeight: 600, fontSize: '.9rem', cursor: 'pointer'
+            width: '100%',
+            padding: '13px',
+            borderRadius: '12px',
+            border: 'none',
+            background: 'var(--gold)',
+            color: '#1a1410',
+            fontWeight: 600,
+            fontSize: '.9rem',
+            cursor: 'pointer',
           }}
         >
           Valider

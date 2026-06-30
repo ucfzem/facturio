@@ -4,22 +4,28 @@
   --gold1: #C4A030;
   --gold2: #D4AF37;
   --gold3: #E8C547;
+  --gold: #c9a24b;
+  --gold-light: #e8cd86;
   --brown: #2D241C;
 }
 
 .dark {
   --bg: #1A1410;
   --bg2: #231B15;
+  --bg-card: #241b14;
   --text: #F5F0E8;
   --text2: #C4B8A8;
+  --muted: #9c8c6f;
   --border: #3D3228;
 }
 
 .light {
   --bg: #FBF7F0;
   --bg2: #F5EDE0;
+  --bg-card: #fffaf0;
   --text: #2D241C;
   --text2: #6B5D4F;
+  --muted: #7a6a52;
   --border: #E0D5C5;
 }
 
